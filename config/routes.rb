@@ -4,5 +4,4 @@ Rails.application.routes.draw do
     root 'pages#my_todo_items'
   end
   root 'pages#home'
-  get
 end
