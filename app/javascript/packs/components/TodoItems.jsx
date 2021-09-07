@@ -1,4 +1,4 @@
-import react from 'react'
+import React from 'react'
 
 class TodoItems extends React.Component {
   constructor(props) {

@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import axios from 'axios'
+import TodoItems from './TodoItems'
+import TodoItem from './TodoItem'
 
 class TodoApp extends React.Component {
   constructor(props) {
@@ -12,7 +14,7 @@ class TodoApp extends React.Component {
     this.getTodoItems = this.getTodoItems.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getTodoItems();
   }
 
@@ -20,8 +22,8 @@ class TodoApp extends React.Component {
     axios
       .get("/api/v1/todo_items")
       .then(response => {
-        const TodoItems = response.data;
-        this.setState({ TodoItems });
+        const todoItems = response.data;
+        this.setState({ todoItems });
       })
       .catch(error => {
         console.log(error);
@@ -29,12 +31,18 @@ class TodoApp extends React.Component {
   }
 
   render() {
-    return  <p>TodoApp</p>
+    return (
+      <TodoItems>
+        {this.state.todoItems.map(todoItem => (
+          <TodoItem key={todoItem.id} todoItem={todoItem}/>
+        ))}
+      </TodoItems>
+    );
   }
 }
 
 
-document.addEventListener('turbolinks:load',  () => {
+document.addEventListener('turbolinks:load', () => {
   const app = document.getElementById('todo-app')
   app && ReactDOM.render(<TodoApp />, app)
 })
