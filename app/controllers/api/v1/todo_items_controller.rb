@@ -20,7 +20,7 @@ class Api::V1::TodoItemsController < ApplicationController
     if authorized?
       respond_to do |format|
         if @todo_item.save
-          format.json { render :show, status: created, location: api_v1_todo_item_path(@todo_item) }
+          format.json { render :show, status: :created, location: api_v1_todo_item_path(@todo_item) }
         else
           format.json { render json: @todo_item.errors, status: :unprocessable_entity }
         end
@@ -30,9 +30,30 @@ class Api::V1::TodoItemsController < ApplicationController
     end
   end
 
-  def update; end
+  def update
+    if authorized?
+      respond_to do |format|
+        if @todo_item.update(todo_item_params)
+          format.json { render :show, status: :ok, location: api_v1_todo_item_path(@todo_item) }
+        else
+          format.json { render json: @todo_item.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      handle_unauthorized
+    end
+  end
 
-  def destroy; end
+  def destroy
+    if authorized?
+      @todo_item.destroy
+      respond_to do |format|
+        format.json { head :no_content }
+      end
+    else
+      handle_unauthorized
+    end
+  end
 
   private
 
