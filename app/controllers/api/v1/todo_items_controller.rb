@@ -5,7 +5,15 @@ class Api::V1::TodoItemsController < ApplicationController
     @todo_items = current_user.todo_items.all
   end
 
-  def show; end
+  def show
+    if authorized?
+      respond_to do |format|
+        format.json { render :show }
+      end
+    else
+      handle_unauthorized
+    end
+  end
 
   def create; end
 
