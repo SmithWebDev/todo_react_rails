@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import axios from 'axios'
+import setAxiosHeaders from './AxiosHeaders'
 class TodoForm extends React.Component {
   constructor(props) {
     super(props)
@@ -10,12 +11,13 @@ class TodoForm extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
+    setAxiosHeaders();
     axios
       .post('/api/v1/todo_items', {
         todo_item: {
           title: this.titleRef.current.value,
-          complete: false,
+          complete: true,
         },
       })
       .then(response => {
