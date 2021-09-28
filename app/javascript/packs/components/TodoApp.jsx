@@ -52,7 +52,7 @@ class TodoApp extends React.Component {
         <TodoForm createTodoItem={this.createTodoItem}/>
         <TodoItems
           toggleCompletedTodoItems={this.toggleCompletedTodoItems}
-          hideCompletedTodoItems={this.hideCompletedTodoItems}
+          hideCompletedTodoItems={this.state.hideCompletedTodoItems}
         >
           {this.state.todoItems.map(todoItem => (
             <TodoItem 

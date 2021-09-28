@@ -57,14 +57,11 @@ class TodoItem extends React.Component {
   }
 
   render() {
-    const { todoItem } = this.props
+    const { todoItem } = this.props;
 
     return (
       <tr 
-        className={
-          `${ this.state.complete && this.props.hideCompletedTodoItems ? `d-none`: "" } 
-          ${this.state.complete ? 'table-light' : ''}`
-        }>
+        className={`${this.state.complete && this.props.hideCompletedTodoItems ? `d-none`: "" } ${this.state.complete ? 'table-light' : ''}` }>
         <td>
           <svg
             className={`bi bi-check-circle ${this.state.complete ? `text-success` : `text-muted`
