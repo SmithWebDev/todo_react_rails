@@ -2,10 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import axios from 'axios'
+import ErrorMessage from './ErrorMessage'
+import Spinner from './Spinner'
 import TodoItems from './TodoItems'
 import TodoItem from './TodoItem'
 import TodoForm from './TodoForm'
-import Spinner from './Spinner'
 
 class TodoApp extends React.Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class TodoApp extends React.Component {
     this.state = {
       todoItems: [],
       hideCompletedTodoItems: false,
-      isLoading: true
+      isLoading: true,
+      errorMessage: null
     };
     this.getTodoItems = this.getTodoItems.bind(this);
     this.createTodoItem = this.createTodoItem.bind(this);
@@ -55,6 +57,9 @@ class TodoApp extends React.Component {
   render() {
     return (
       <>
+        {this.state.errorMessage && (
+          <ErrorMessage errormessage={this.state.errorMessage} />
+        )}
         {!this.state.isLoading && (
           <>
             <TodoForm createTodoItem={this.createTodoItem} />
