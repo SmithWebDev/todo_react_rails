@@ -19,7 +19,9 @@ class TodoApp extends React.Component {
     };
     this.getTodoItems = this.getTodoItems.bind(this);
     this.createTodoItem = this.createTodoItem.bind(this);
-    this.toggleCompletedTodoItems = this.toggleCompletedTodoItems.bind(this)
+    this.toggleCompletedTodoItems = this.toggleCompletedTodoItems.bind(this);
+    this.handleErrors = this.handleErrors.bind(this);
+    this.clearErrors = this.clearErrors.bind(this);
 
 
   }
@@ -54,6 +56,16 @@ class TodoApp extends React.Component {
     })
   }
 
+  handleErrors(errorMessage) {
+    this.setState({ errorMessage});
+  }
+
+  clearErrors() {
+    this.setState({
+      errorMessage: null
+    });
+  }
+
   render() {
     return (
       <>
@@ -62,7 +74,11 @@ class TodoApp extends React.Component {
         )}
         {!this.state.isLoading && (
           <>
-            <TodoForm createTodoItem={this.createTodoItem} />
+            <TodoForm 
+              createTodoItem={this.createTodoItem} 
+              handleErrors={this.handleErrors}
+              clearErrors={this.clearErrors}
+            />
             <TodoItems
               toggleCompletedTodoItems={this.toggleCompletedTodoItems}
               hideCompletedTodoItems={this.state.hideCompletedTodoItems}
